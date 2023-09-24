@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+      #area1{
+          width: 100%;
+          height: 200px;
+          background-color: aqua;
+          text-align: center;
+      }
+      #area1 input,button{
+        margin-top: 100px;
+      }
+      #area2{
+          width: 30%;
+          height: 400px;
+          background-color: antiquewhite;
+          float: left;
+          text-align: center;
+      }
+      #area3{
+          width: 70%;
+          height: 400px;
+          background-color: aquamarine;
+          float: left;
+          text-align: center;
+      }
+      #button1{
+          width: 50px;
+          height: 50px;
+          background-color: greenyellow;
+          display: block;
+          margin-bottom: 50px;
+          margin-left: 40%;
+          margin-top: 50px;
+      }
+      #button2{
+          width: 50px;
+          height: 50px;
+          background-color: greenyellow;
+          display: block;
+          margin-bottom: 50px;
+          margin-left: 40%;
+          margin-top: 50px;
+      }
+      #button3{
+          width: 50px;
+          height: 50px;
+          background-color: greenyellow;
+          display: block;
+          margin-bottom: 50px;
+          margin-left: 40%;
+          margin-top: 50px;
+      }
+  </style>
+</head>
+<body>
+  <!-- 영역 1 -->
+  <div id="area1">
+    <input type="text" id="id" placeholder="아이디를 입력하세요.">
+    <button id="login">로그인</button>
+  </div>
+  <!-- 영역 2 -->
+  <div id="area2">
+    <button class="button" id="button1">버튼1</button>
+    <button class="button" id="button2">버튼2</button>
+    <button class="button" id="button3">버튼3</button>
+  </div>
+  <!-- 영역 3 -->
+  <div id="area3">
+    <p id="content"></p>
+  </div>
+  <!-- JavaScript -->
+  <script>
+    let isLoggedIn = false; // 로그인 상태를 나타내는 변수
+    let button2Content = ""; // 버튼 2의 내용을 저장할 변수
+
+    // 영역 1
+    const idInput = document.querySelector("#id");
+    const loginButton = document.querySelector("#login");
+
+    loginButton.addEventListener("click", () => {
+      if (isLoggedIn) {
+        // 로그아웃 기능
+        // 초기화
+        document.querySelector("#area1").innerHTML = `
+          <input type="text" id="id" placeholder="아이디를 입력하세요.">
+          <button id="login">로그인</button>
+        `;
+        isLoggedIn = false; // 로그인 상태 변경
+      } else {
+        // 로그인 기능
+        // 닉네임과 대표사진 출력
+        document.querySelector("#area1").innerHTML = `
+          <h1>이상휘입니다.</h1>
+          <img src="https://avatars.githubusercontent.com/u/102143141?v=4" width="100" style="background-color: black;">
+          <button id="logout">로그아웃</button>
+        `;
+        isLoggedIn = true; // 로그인 상태 변경
+
+        // 로그아웃 버튼 이벤트 추가
+        const logoutButton = document.querySelector("#logout");
+        logoutButton.addEventListener("click", () => {
+          // 로그아웃 기능
+          // 초기화
+          document.querySelector("#area1").innerHTML = `
+            <input type="text" id="id" placeholder="아이디를 입력하세요.">
+            <button id="login">로그인</button>
+          `;
+          isLoggedIn = false; // 로그인 상태 변경
+        });
+      }
+    });
+
+    // 영역 2, 3
+    const button1 = document.querySelector("#button1");
+    const button2 = document.querySelector("#button2");
+    const button3 = document.querySelector("#button3");
+    const content = document.querySelector("#content");
+
+    // 버튼1 클릭 이벤트
+    button1.addEventListener("click", () => {
+      content.innerHTML = button1.dataset.content;
+    });
+
+    // 버튼2 클릭 이벤트
+    button2.addEventListener("click", () => {
+      if (button2Content) {
+        content.innerHTML = button2Content;
+        button2Content = "";
+      }
+    });
+
+    // 버튼3 클릭 이벤트
+    button3.addEventListener("click", () => {
+      if (button2Content) {
+        content.innerHTML = button2Content;
+        button2Content = button3.dataset.content;
+        button3.dataset.content = "";
+      } else {
+        button2Content = button3.dataset.content;
+        button3.dataset.content = "";
+        content.innerHTML = "내용이 없습니다.";
+      }
+    });
+
+    button1.dataset.content = "202027008이상휘";
+    button2.dataset.content = "힘듭니다. 정말로.";
+    button3.dataset.content = "버튼3의 내용입니다.";
+  </script>
+
+</body>
+</html>
